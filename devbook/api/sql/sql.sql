@@ -9,6 +9,6 @@ CREATE TABLE usuarios (
     nome VARCHAR(50) NOT NULL,
     nick VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(50) NOT NULL UNIQUE,
-    senha VARCHAR(20) NOT NULL UNIQUE,
+    senha VARCHAR(20) NOT NULL,
     criadoEm  timestamp default current_timestamp()
 ) ENGINE=InnoDB;
