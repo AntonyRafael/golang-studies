@@ -31,11 +31,11 @@ func (repositorio Usuarios) Criar(usuario modelos.Usuario) (uint64, error) {
 		return 0, erro
 	}
 
-	idInserido, erro := resultado.LastInsertId()
+	usuarioID, erro := resultado.LastInsertId()
 
 	if erro != nil {
 		return 0, erro
 	}
 
-	return uint64(idInserido), nil
+	return uint64(usuarioID), nil
 }
