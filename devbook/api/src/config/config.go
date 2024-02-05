@@ -14,6 +14,8 @@ var (
 	StringConexaoBancoDeDados = ""
 	// Porta vai conter a porta que o servidor vai escutar
 	Porta = 0
+	// SecretKey vai conter a chave secreta para criptografar os tokens
+	SecretKey = []byte("")
 )
 
 // Carregar vai inicializar as configurações do projeto
@@ -34,4 +36,6 @@ func Carregar() {
 		os.Getenv("DB_SENHA"),
 		os.Getenv("DB_NOME"),
 	)
+
+	SecretKey = []byte(os.Getenv("SECRET_KEY"))
 }
