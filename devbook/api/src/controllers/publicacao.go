@@ -9,6 +9,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 // CriarPublicacao cria uma nova publicação
@@ -65,7 +68,32 @@ func BuscarPublicacoes(w http.ResponseWriter, r *http.Request) {
 
 // BuscarPublicacao busca uma publicação específica do usuário
 func BuscarPublicacao(w http.ResponseWriter, r *http.Request) {
+	parametros := mux.Vars(r)
+	publicacaoID, erro := strconv.ParseUint(parametros["publicacaoId"], 10, 64)
 
+	if erro != nil {
+		respostas.Erro(w, http.StatusBadRequest, erro)
+		return
+	}
+
+	db, err := banco.Conectar()
+
+	if err != nil {
+		respostas.Erro(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	defer db.Close()
+
+	repositorio := repositorios.NovoRepositorioDePublicacoes(db)
+	publicacao, erro := repositorio.BuscarPorID(publicacaoID)
+
+	if erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+
+	respostas.JSON(w, http.StatusOK, publicacao)
 }
 
 // AtualizarPublicacao atualiza uma publicação do usuário
