@@ -3,7 +3,6 @@ package repositorios
 import (
 	"api/src/modelos"
 	"database/sql"
-	"fmt"
 )
 
 // Publicacoes é um repositório de publicações
@@ -120,10 +119,6 @@ func (repositorio Publicacoes) Atualizar(publicacaoID uint64, publicacao modelos
 		return erro
 	}
 	defer statement.Close()
-
-	fmt.Println("=================")
-	fmt.Println(publicacao.Titulo, publicacao.Conteudo, publicacaoID)
-	fmt.Println("=================")
 
 	if _, erro = statement.Exec(publicacao.Titulo, publicacao.Conteudo, publicacaoID); erro != nil {
 		return erro

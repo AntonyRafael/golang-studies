@@ -166,18 +166,10 @@ func AtualizarPublicacao(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	println("===")
-	println(publicacao.Titulo, publicacao.Conteudo)
-	println("===")
-
 	if erro = publicacao.Preparar(); erro != nil {
 		respostas.Erro(w, http.StatusBadRequest, erro)
 		return
 	}
-
-	println("===")
-	println(publicacao.Titulo, publicacao.Conteudo)
-	println("===")
 
 	if erro = repositorio.Atualizar(publicacaoID, publicacao); erro != nil {
 		respostas.Erro(w, http.StatusInternalServerError, erro)
