@@ -1,3 +1,6 @@
 go 1.21.6
 
-use ./devbook/api
+use (
+	./devbook/api
+	./devbook/webapp
+)
