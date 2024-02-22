@@ -3,9 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/assets/css/login.css">
   <title>Login - Devbook</title>
 </head>
 <body>
-  <h2>Página de Login</h2>
+  <div class="container-login">
+    <div>
+      <form class="devbook-form" id="login">
+        <span>Seja bem-vindo ao DevBook!</span>
+        <div>
+          <input type="text" name="email" id="email" placeholder="Digite seu e-mail" required>
+        </div>
+        <div>
+          <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
+        </div>
+        <a class="anchor-login" href="#">Clique aqui para criar sua conta</a>
+        <button class="btn-devbook" type="submit">Login</button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
