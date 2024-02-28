@@ -1,21 +1,21 @@
 package controllers
 
 import (
+	"api/src/modelos"
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"webapp/src/config"
+	"webapp/src/cookies"
 	"webapp/src/respostas"
 )
 
-// CriarUsuario chama a API para criar um usuário
-func CriarUsuario(w http.ResponseWriter, r *http.Request) {
+// FazerLogin faz o login do usuário
+func FazerLogin(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 
 	usuario, erro := json.Marshal(map[string]string{
-		"nome":  r.FormValue("nome"),
-		"nick":  r.FormValue("nick"),
 		"email": r.FormValue("email"),
 		"senha": r.FormValue("senha"),
 	})
@@ -25,7 +25,7 @@ func CriarUsuario(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url := fmt.Sprintf("%s/usuarios", config.APIURL)
+	url := fmt.Sprintf("%s/login", config.APIURL)
 	response, erro := http.Post(url, "application/json", bytes.NewBuffer(usuario))
 
 	if erro != nil {
@@ -40,5 +40,16 @@ func CriarUsuario(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	respostas.JSON(w, response.StatusCode, nil)
+	var dadosAutenticacao modelos.DadosAutenticacao
+	if erro = json.NewDecoder(response.Body).Decode(&dadosAutenticacao); erro != nil {
+		respostas.JSON(w, http.StatusUnprocessableEntity, respostas.Erro{Erro: erro.Error()})
+		return
+	}
+
+	if erro = cookies.Salvar(w, dadosAutenticacao.ID, dadosAutenticacao.Token); erro != nil {
+		respostas.JSON(w, http.StatusInternalServerError, respostas.Erro{Erro: erro.Error()})
+		return
+	}
+
+	respostas.JSON(w, http.StatusOK, nil)
 }
