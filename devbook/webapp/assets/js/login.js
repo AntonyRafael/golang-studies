@@ -12,7 +12,7 @@ function fazerLogin(evento) {
     },
   })
     .done(function () {
-      window.location = "/home";
+      window.location.href = "/home";
     })
     .fail(function () {
       // Swal.fire("Ops...", "Usuário ou senha incorretos!", "error");
