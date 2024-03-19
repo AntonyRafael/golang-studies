@@ -6,12 +6,12 @@ import (
 	"webapp/src/cookies"
 )
 
-// Logger é um middleware que loga as requisições recebidas
-func Logger(next http.HandlerFunc) http.HandlerFunc {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("Requisição recebida: %s %s %s", r.Method, r.URL.Path, r.Host)
-		next(w, r)
-	})
+// Logger escreve informações da requisição no terminal
+func Logger(proximaFuncao http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("\n %s %s %s", r.Method, r.RequestURI, r.Host)
+		proximaFuncao(w, r)
+	}
 }
 
 // Autenticar verifica a existência de cookies

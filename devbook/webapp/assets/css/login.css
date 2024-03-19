@@ -3,16 +3,16 @@
     padding: 0px;
     box-sizing: border-box;
     font-family: Georgia, 'Times New Roman', Times, serif;
-}
+};
 
-.anchor-login {
+a {
     font-size: 16px;
     color: #3b5998;
     line-height: 1.4;
     text-align: center;
 }
 
-.anchor-login:hover {
+a:hover {
     text-decoration: none;
 }
 
@@ -79,7 +79,7 @@ input::placeholder {
     height: 62px;
     background-color: #3b5998;
     outline: none;
-    border: none;
+    border: none
 }
 
 .btn-devbook:hover{

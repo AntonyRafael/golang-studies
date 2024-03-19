@@ -1,25 +1,27 @@
 package rotas
 
 import (
-	"api/src/middlewares"
 	"net/http"
+	"webapp/src/middlewares"
 
 	"github.com/gorilla/mux"
 )
 
-// Rota representa uma rota da aplicação web
+// Rota representa todas as rotas da Aplicação Web
 type Rota struct {
 	URI                string
 	Metodo             string
-	Funcao             func(w http.ResponseWriter, r *http.Request)
+	Funcao             func(http.ResponseWriter, *http.Request)
 	RequerAutenticacao bool
 }
 
-// Configurar configura as rotas dentro do router
+// Configurar coloca todas as rotas dentro do router
 func Configurar(router *mux.Router) *mux.Router {
 	rotas := rotasLogin
 	rotas = append(rotas, rotasUsuarios...)
 	rotas = append(rotas, rotaPaginaPrincipal)
+	rotas = append(rotas, rotasPublicacoes...)
+	rotas = append(rotas, rotaLogout)
 
 	for _, rota := range rotas {
 

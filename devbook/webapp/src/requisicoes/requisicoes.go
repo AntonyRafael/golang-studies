@@ -6,7 +6,7 @@ import (
 	"webapp/src/cookies"
 )
 
-// FazerRequisicaoComAutenticacao faz uma requisição com autenticação
+// FazerRequisicaoComAutenticacao é utilizada para colocar o token na requisição
 func FazerRequisicaoComAutenticacao(r *http.Request, metodo, url string, dados io.Reader) (*http.Response, error) {
 	request, erro := http.NewRequest(metodo, url, dados)
 	if erro != nil {
@@ -14,13 +14,10 @@ func FazerRequisicaoComAutenticacao(r *http.Request, metodo, url string, dados i
 	}
 
 	cookie, _ := cookies.Ler(r)
-
 	request.Header.Add("Authorization", "Bearer "+cookie["token"])
 
 	client := &http.Client{}
-
 	response, erro := client.Do(request)
-
 	if erro != nil {
 		return nil, erro
 	}
